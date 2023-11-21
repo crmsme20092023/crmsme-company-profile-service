@@ -26,7 +26,6 @@ public interface BusinessMapper {
             "gst_number, " +
             "current_billing_process_id, " +
             "pan_number, " +
-            "signature_id, " +
             "business_id" +
             ")" +
             " values( " +
@@ -37,11 +36,10 @@ public interface BusinessMapper {
             ", #{gstNumber}" +
             ", #{currentBillingProcessId}" +
             ", #{panNumber}" +
-            ", #{signatureId}" +
             ", #{businessId}" +
             ")")
     @Options(useGeneratedKeys = true, keyColumn = "ID",keyProperty = "id")
-    public  Integer insertBusinessDetails(BusinessEntity businessEntity);
+    public  Long insertBusinessDetails(BusinessEntity businessEntity);
 
 
 

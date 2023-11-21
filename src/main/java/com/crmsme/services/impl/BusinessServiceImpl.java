@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -41,11 +42,11 @@ public class BusinessServiceImpl implements BusinessService {
                 configDataMapper.getConfigDataByLabel(businessRequestDto.getCurrentBillingProcess())
         ).getId());
 
-        businessEntity.setSignatureId(3L);
+        businessEntity.setBusinessId("2342");
 
-
-      int id =   businessMapper.insertBusinessDetails(businessEntity);
-      log.info("Business Created :: ID  : '{}' ",id);
+         businessMapper.insertBusinessDetails(businessEntity);
+         long id = businessEntity.getId();
+         log.info("Business Created :: ID  : '{}' ",id);
 
         return true;
     }

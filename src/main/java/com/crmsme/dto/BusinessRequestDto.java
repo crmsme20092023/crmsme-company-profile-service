@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BusinessRequestDto {
 
-    private Long id;
+
     private String businessId;
     private String businessName;
     private String businessCategory;
@@ -30,7 +30,6 @@ public class BusinessRequestDto {
                 .businessName(businessName)
                 .gstNumber(gstNumber)
                 .panNumber(panNumber)
-              .businessId(businessId)
                 .createdDateTime(LocalDateTime.now())
                 .build();
 
