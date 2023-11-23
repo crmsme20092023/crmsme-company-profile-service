@@ -4,8 +4,9 @@ import com.crmsme.dto.BusinessRequestDto;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BusinessService {
+public interface RoleService {
 
-    public Long createBusinessDetails(BusinessRequestDto businessRequestDto);
+    public Long getRoleIdByName(String roleName);
+    public String getRoleNameById(Long id);
 
 }

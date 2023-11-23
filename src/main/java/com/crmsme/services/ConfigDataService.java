@@ -12,4 +12,8 @@ public interface ConfigDataService {
 
     public List<ConfigDataResponseDto> getConfigDataAsListOfValues();
 
+
+
+
+
 }

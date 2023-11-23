@@ -1,5 +1,7 @@
 package com.crmsme.constant;
 
+import org.springframework.web.servlet.tags.BindErrorsTag;
+
 public interface CONSTANT_PROPERTIES {
 
     String OTP_EMAIL_SUBJECT="X-BillBook Login OTP";
@@ -12,6 +14,17 @@ public interface CONSTANT_PROPERTIES {
 
     String CRM_SME_ENCRYPTED_PASSWORD= "c5HCIRbRN9Ij2uMIvqwsAQ==";
 
+
+    interface  ROLES{
+
+        String ADMIN="Admin";
+        String SALESMAN="Salesman";
+        String STOCK_MANAGER="Stock Manager";
+        String PARTNER="Partner";
+        String ACCOUNTANT="Accountant";
+        String DELIVERY_BOY="Delivery Boy";
+
+    }
 
 
 

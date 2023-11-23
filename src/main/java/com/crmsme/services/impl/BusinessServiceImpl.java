@@ -5,13 +5,9 @@ import com.crmsme.dto.BusinessRequestDto;
 import com.crmsme.mapper.BusinessMapper;
 import com.crmsme.mapper.ConfigDataMapper;
 import com.crmsme.services.BusinessService;
-import com.sun.mail.imap.protocol.UID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -24,7 +20,7 @@ public class BusinessServiceImpl implements BusinessService {
     ConfigDataMapper configDataMapper;
 
     @Override
-    public boolean createBusinessDetails(BusinessRequestDto businessRequestDto) {
+    public Long createBusinessDetails(BusinessRequestDto businessRequestDto) {
 
 
         BusinessEntity businessEntity = businessRequestDto.createBusinessEntity();
@@ -48,6 +44,6 @@ public class BusinessServiceImpl implements BusinessService {
          long id = businessEntity.getId();
          log.info("Business Created :: ID  : '{}' ",id);
 
-        return true;
+        return id;
     }
 }
