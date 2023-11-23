@@ -32,12 +32,12 @@ public class BusinessController {
 
         log.info("Create Business Controller Start");
 
-        log.info("Specific Header Value: '{}' " , username);
+        log.info("username Header Value: '{}' " , username);
 
         Long businessId = businessService.createBusinessDetails(businessRequestDto);
 
             Long userId = userService.getUserIdByEmailId(username);
-            if(userId<1){
+            if(userId ==null || userId<1){
 
                 UserEntity userEntity = UserEntity.builder()
                         .emailId(username)
