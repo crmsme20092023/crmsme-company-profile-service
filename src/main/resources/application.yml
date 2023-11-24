@@ -1,0 +1,5 @@
+database:
+  driverClassName: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/crmsme
+  username: root
+  password: c5HCIRbRN9Ij2uMIvqwsAQ==
