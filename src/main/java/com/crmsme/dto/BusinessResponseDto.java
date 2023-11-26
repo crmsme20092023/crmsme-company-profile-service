@@ -13,26 +13,15 @@ public class BusinessResponseDto {
 
     private Long id;
     private String businessId;
+    private String businessType;
+    private String businessCategory;
+    private String businessRegistrationType;
     private String businessName;
-
-
-    private String businessCategoryId;
-
-    private String businessTypeId;
-
-    private String businessRegistrationTypeId;
-
-    private String gstNumber;
-
-    private String currentBillingProcessId;
-
+    private String businessEmailId;
+    private String businessContactNumber;
     private String panNumber;
-
-    private String termsAndConditionsId;
-
-    private String signatureId;
-
-    private LocalDateTime createdDateTime;
-
+    private String gstNumber;
+    private String currentBillingProcess;
+    private BusinessAddress businessAddress;
 
 }

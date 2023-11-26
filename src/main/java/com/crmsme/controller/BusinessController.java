@@ -34,8 +34,15 @@ public class BusinessController {
 
         log.info("username Header Value: '{}' " , username);
 
-        Long businessId = businessService.createBusinessDetails(businessRequestDto);
+        /** Create New Business : Insert into Business Details**/
+        long businessId = businessService.createBusinessDetails(businessRequestDto);
 
+        /***Insert Business Address ***/
+
+        businessService.insertBusinessAddress(businessRequestDto.getBusinessAddress(), businessId);
+
+
+        /**Create User if it's New **/
             Long userId = userService.getUserIdByEmailId(username);
             if(userId ==null || userId<1){
 
@@ -47,6 +54,8 @@ public class BusinessController {
                 userId = userService.createUserDetails(userEntity);
             }
 
+
+            /***Insert User and Business Mapping ***/
             Long roleId = roleService.getRoleIdByName(CONSTANT_PROPERTIES.ROLES.ADMIN);
 
             log.info("Role ID '{}' ",roleId);

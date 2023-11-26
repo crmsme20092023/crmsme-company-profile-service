@@ -26,4 +26,34 @@ public interface ConfigDataMapper {
     public List<ConfigDataEntity> getLovDataFromConfigData();
 
 
+
+    /*** New ***/
+    @Select("select * from config_data cd "   +
+            " where  cd.label  = #{label}")
+    public ConfigDataEntity getCountryIdByName(Long id);
+
+
+    @Select("select * from config_data cd "   +
+            " where  cd.label  = #{label}")
+    public ConfigDataEntity getCountryNameById(Long id);
+
+
+    @Select("select * from config_data cd "   +
+            " where  cd.label  = #{label}")
+    public ConfigDataEntity getStateIdByName(Long id);
+
+    @Select("select * from config_data cd "   +
+            " where  cd.label  = #{label}")
+    public ConfigDataEntity getStateNameById(Long id);
+
+
+    @Select("select * from config_data cd "   +
+            " where  cd.label  = #{label}")
+    public ConfigDataEntity getCityIdByName(Long id);
+
+    @Select("select * from config_data cd "   +
+            " where  cd.label  = #{label}")
+    public ConfigDataEntity getCityNameById(Long id);
+
+
 }

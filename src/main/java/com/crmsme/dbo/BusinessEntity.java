@@ -1,6 +1,7 @@
 package com.crmsme.dbo;
 
 
+import com.crmsme.dto.BusinessAddress;
 import com.crmsme.dto.BusinessResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -17,28 +18,17 @@ public class BusinessEntity {
 
     private Long id;
     private String businessId;
-    private String businessName;
-
     private Long businessCategoryId;
-
     private Long businessTypeId;
-
     private Long businessRegistrationTypeId;
-
-
+    private String businessName;
+    private String businessEmailId;
+    private String businessContactNumber;
+    private String panNumber;
     private String gstNumber;
-
     private Long currentBillingProcessId;
 
-
-    private String panNumber;
-
-    private String termsAndConditionsId;
-
-    private Long signatureId;
-
     private LocalDateTime createdDateTime;
-
 
     @JsonIgnore
 public BusinessResponseDto createBusinessResponse(){
@@ -46,6 +36,10 @@ public BusinessResponseDto createBusinessResponse(){
             .id(id)
             .businessId(businessId)
             .businessName(businessName)
+            .businessContactNumber(businessContactNumber)
+            .businessEmailId(businessEmailId)
+            .panNumber(panNumber)
+            .gstNumber(gstNumber)
             .build();
 }
 }
