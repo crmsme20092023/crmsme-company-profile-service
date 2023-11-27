@@ -12,6 +12,7 @@ import com.crmsme.services.RoleService;
 import com.crmsme.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,10 +26,8 @@ public class BusinessController {
     UserService userService;
     @Autowired
     RoleService roleService;
-
-
     @PostMapping(Constant.CREATE_BUSINESS)
-    public Response createBusiness(@RequestBody BusinessRequestDto businessRequestDto, @RequestHeader("user_name") String username){
+    public Response createBusiness(@Validated  @RequestBody BusinessRequestDto businessRequestDto, @RequestHeader("user_name") String username){
 
         log.info("Create Business Controller Start");
 
