@@ -1,8 +1,10 @@
 package com.crmsme.dto;
 
 import com.crmsme.enums.ResponseStatus;
+import com.crmsme.global.ValidationError;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import org.springframework.web.ErrorResponse;
 
 import java.util.Objects;
 
@@ -10,13 +12,25 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response<T> {
 
-
+    private ResponseStatus status;
     private T data;
     private String message;
     private String errorCode;
     private String errorDetails;
-    private ResponseStatus status;
+
+    private ValidationError error;
     private String uriPath;
+
+
+
+
+    public ValidationError getError() {
+        return error;
+    }
+
+    public void setError(ValidationError error) {
+        this.error = error;
+    }
 
     public boolean success() {
         return Objects.nonNull(this.status) && this.status == ResponseStatus.SUCCESS;
@@ -196,13 +210,14 @@ public class Response<T> {
     public Response() {
     }
 
-    public Response(ResponseStatus status, String message, T data, String errorCode, String errorDetails, String uriPath) {
+    public Response(ResponseStatus status, String message, T data, String errorCode, String errorDetails, String uriPath, ValidationError error) {
         this.status = status;
         this.message = message;
         this.data = data;
         this.errorCode = errorCode;
         this.errorDetails = errorDetails;
         this.uriPath = uriPath;
+        this.error = error;
     }
 
     public static class ResponseBuilder<T> {
@@ -212,6 +227,8 @@ public class Response<T> {
         private String errorCode;
         private String errorDetails;
         private String uriPath;
+
+        private ValidationError error;
 
         ResponseBuilder() {
         }
@@ -236,6 +253,11 @@ public class Response<T> {
             return this;
         }
 
+        public Response.ResponseBuilder<T> error(ValidationError error) {
+            this.error = error;
+            return this;
+        }
+
         public Response.ResponseBuilder<T> errorDetails(String errorDetails) {
             this.errorDetails = errorDetails;
             return this;
@@ -247,11 +269,11 @@ public class Response<T> {
         }
 
         public Response<T> build() {
-            return new Response(this.status, this.message, this.data, this.errorCode, this.errorDetails, this.uriPath);
+            return new Response(this.status, this.message, this.data, this.errorCode, this.errorDetails, this.uriPath,this.error);
         }
 
         public String toString() {
-            return "Response.ResponseBuilder(status=" + this.status + ", message=" + this.message + ", data=" + this.data + ", errorCode=" + this.errorCode + ", errorDetails=" + this.errorDetails + ", uriPath=" + this.uriPath + ")";
+            return "Response.ResponseBuilder(status=" + this.status + ", message=" + this.message + ", data=" + this.data + ", errorCode=" + this.errorCode + ", errorDetails=" + this.errorDetails + ", uriPath=" + this.uriPath + ", error="+this.error+")";
         }
     }
 }

@@ -29,11 +29,15 @@ public class GlobalExceptionHandler {
 
         List<String> valuesList = new ArrayList<>(map.values());
 
+
         return Response.builder()
-                .errorDetails(valuesList.toString())
-                .uriPath(request.getRequestURI())
                 .status(com.crmsme.enums.ResponseStatus.ERROR)
-                .errorCode(HttpStatus.BAD_REQUEST.toString())
+                .error(ValidationError.builder()
+                        .code(400)
+                        .description(HttpStatus.BAD_REQUEST.toString().substring(4))
+                        .message(valuesList.toString())
+                        .build())
+                .uriPath(request.getRequestURI())
                 .build();
     }
 
@@ -45,10 +49,13 @@ public class GlobalExceptionHandler {
         String errorMessage = "An unexpected error occurred: " + exception.getMessage();
 
         return Response.builder()
-                .errorDetails(errorMessage)
-                .uriPath(request.getRequestURI())
                 .status(com.crmsme.enums.ResponseStatus.ERROR)
-                .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.toString())
+                .error(ValidationError.builder()
+                        .code(500)
+                        .description(HttpStatus.INTERNAL_SERVER_ERROR.toString().substring(4))
+                        .message(errorMessage)
+                        .build())
+                .uriPath(request.getRequestURI())
                 .build();
     }
 
