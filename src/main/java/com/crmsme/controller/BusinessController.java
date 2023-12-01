@@ -10,16 +10,22 @@ import com.crmsme.global.enums.ResponseStatus;
 import com.crmsme.services.BusinessService;
 import com.crmsme.services.RoleService;
 import com.crmsme.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 
 @Slf4j
 @RestController
 @RequestMapping(Constant.BASE_URL)
 public class BusinessController {
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
     @Autowired
     BusinessService businessService;
     @Autowired
@@ -76,14 +82,17 @@ public class BusinessController {
             userService.insertUserBusinessMapping(userBusinessMappingEntity);
 
 
+        ;
+
+
+            /** Request URI by String uri (ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getRequestURI(); ***/
 
             return Response.builder()
-                    .data(businessRequestDto)
-                    .message(Constant.SUCCESS)
                     .status(ResponseStatus.SUCCESS)
+                    .data(businessRequestDto)
+                    .timestamp(LocalDateTime.now())
+                    .uriPath(httpServletRequest.getRequestURI())
                     .build();
-
-
 
 
     }
