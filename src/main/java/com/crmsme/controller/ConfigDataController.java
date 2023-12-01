@@ -1,10 +1,8 @@
 package com.crmsme.controller;
 
 import com.crmsme.constant.Constant;
-import com.crmsme.dto.BusinessRequestDto;
-import com.crmsme.dto.Response;
-import com.crmsme.enums.ResponseStatus;
-import com.crmsme.services.BusinessService;
+import com.crmsme.global.dto.Response;
+import com.crmsme.global.enums.ResponseStatus;
 import com.crmsme.services.ConfigDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,10 @@
-package com.crmsme.dto;
+package com.crmsme.global.dto;
 
-import com.crmsme.enums.ResponseStatus;
-import com.crmsme.global.ValidationError;
+
+import com.crmsme.global.enums.ResponseStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
-import org.springframework.web.ErrorResponse;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -17,18 +16,15 @@ public class Response<T> {
     private String message;
     private String errorCode;
     private String errorDetails;
-
-    private ValidationError error;
+    private CustomError error;
+    private LocalDateTime timestamp;
     private String uriPath;
 
-
-
-
-    public ValidationError getError() {
+    public CustomError getError() {
         return error;
     }
 
-    public void setError(ValidationError error) {
+    public void setError(CustomError error) {
         this.error = error;
     }
 
@@ -36,18 +32,27 @@ public class Response<T> {
         return Objects.nonNull(this.status) && this.status == ResponseStatus.SUCCESS;
     }
 
-    public Response(ResponseStatus status, String message, T data) {
+    public Response(ResponseStatus status, String message, T data, LocalDateTime timestamp) {
         this.status = status;
         this.message = message;
         this.data = data;
+        this.timestamp = timestamp;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public boolean hasData() {
         return Objects.nonNull(this.data);
     }
 
-    public static <T> Response.ResponseBuilder<T> builder() {
-        return new Response.ResponseBuilder();
+    public static <T> ResponseBuilder<T> builder() {
+        return new ResponseBuilder();
     }
 
     public ResponseStatus getStatus() {
@@ -207,10 +212,27 @@ public class Response<T> {
         return "Response(status=" + this.getStatus() + ", message=" + this.getMessage() + ", data=" + this.getData() + ", errorCode=" + this.getErrorCode() + ", errorDetails=" + this.getErrorDetails() + ", uriPath=" + this.getUriPath() + ")";
     }
 
+
+    public String toJsonStringForTokenException() {
+        return " { \"status\" : \"error\" ,\"error\": {"+
+                ",\"code\"  : \" "+error.getCode()+"  \"  "+
+                ",\"description\"  : \" "+error.getDescription()+"  \"  "+
+                ",\"message\"  : \" "+error.getMessage()+"  \"  " +
+                "}" +
+                ",\"timestamp\"  : \" "+getTimestamp()+"  \"  " +
+                "}";
+
+
+
+
+//                "Response(status=" + this.getStatus() + ", message=" + this.getMessage() + ", data=" + this.getData() + ", errorCode=" + this.getErrorCode() + ", errorDetails=" + this.getErrorDetails() + ", uriPath=" + this.getUriPath() + ")";
+    }
+
+
     public Response() {
     }
 
-    public Response(ResponseStatus status, String message, T data, String errorCode, String errorDetails, String uriPath, ValidationError error) {
+    public Response(ResponseStatus status, String message, T data, String errorCode, String errorDetails, String uriPath, CustomError error,LocalDateTime timestamp) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -218,6 +240,7 @@ public class Response<T> {
         this.errorDetails = errorDetails;
         this.uriPath = uriPath;
         this.error = error;
+        this.timestamp= timestamp;
     }
 
     public static class ResponseBuilder<T> {
@@ -228,48 +251,54 @@ public class Response<T> {
         private String errorDetails;
         private String uriPath;
 
-        private ValidationError error;
+        private CustomError error;
+        private LocalDateTime timestamp;
 
         ResponseBuilder() {
         }
 
-        public Response.ResponseBuilder<T> status(ResponseStatus status) {
+        public ResponseBuilder<T> status(ResponseStatus status) {
             this.status = status;
             return this;
         }
 
-        public Response.ResponseBuilder<T> message(String message) {
+        public ResponseBuilder<T> message(String message) {
             this.message = message;
             return this;
         }
 
-        public Response.ResponseBuilder<T> data(T data) {
+        public ResponseBuilder<T> data(T data) {
             this.data = data;
             return this;
         }
 
-        public Response.ResponseBuilder<T> errorCode(String errorCode) {
+        public ResponseBuilder<T> errorCode(String errorCode) {
             this.errorCode = errorCode;
             return this;
         }
 
-        public Response.ResponseBuilder<T> error(ValidationError error) {
+        public ResponseBuilder<T> error(CustomError error) {
             this.error = error;
             return this;
         }
 
-        public Response.ResponseBuilder<T> errorDetails(String errorDetails) {
+        public ResponseBuilder<T> errorDetails(String errorDetails) {
             this.errorDetails = errorDetails;
             return this;
         }
 
-        public Response.ResponseBuilder<T> uriPath(String uriPath) {
+        public ResponseBuilder<T> uriPath(String uriPath) {
             this.uriPath = uriPath;
             return this;
         }
 
+        public ResponseBuilder<T> timestamp(LocalDateTime timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
         public Response<T> build() {
-            return new Response(this.status, this.message, this.data, this.errorCode, this.errorDetails, this.uriPath,this.error);
+            return new Response(this.status, this.message, this.data, this.errorCode, this.errorDetails, this.uriPath,this.error,this.timestamp);
         }
 
         public String toString() {
