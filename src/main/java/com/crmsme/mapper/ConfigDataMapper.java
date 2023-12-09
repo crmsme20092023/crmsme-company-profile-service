@@ -1,6 +1,8 @@
 package com.crmsme.mapper;
 
 import com.crmsme.dbo.ConfigDataEntity;
+import com.crmsme.dbo.FeaturePackageEntity;
+import com.crmsme.dbo.UserFeaturePackageMappingEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,8 +17,19 @@ public interface ConfigDataMapper {
             " where  cd.label  = #{label}")
    public ConfigDataEntity getConfigDataByLabel(String label);
 
+ @Select("select * from feature_and_package  "   +
+         " where  feature_name  = #{featureName}")
+ public FeaturePackageEntity getFeatureAndPackageByLabel(String featureName);
 
-    @Select("select * from config_data cd "   +
+
+
+   @Select("select * from feature_and_package  "   +
+           " where  id  = #{id}")
+   public FeaturePackageEntity getFeatureAndPackageById(Long id);
+
+
+
+   @Select("select * from config_data cd "   +
             " where  cd.id  = #{id}")
     public ConfigDataEntity getConfigDataById(Long id);
 

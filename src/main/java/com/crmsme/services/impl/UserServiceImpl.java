@@ -1,8 +1,10 @@
 package com.crmsme.services.impl;
 
+import com.crmsme.constant.CONSTANT_PROPERTIES;
 import com.crmsme.dbo.BusinessEntity;
 import com.crmsme.dbo.UserBusinessMappingEntity;
 import com.crmsme.dbo.UserEntity;
+import com.crmsme.dbo.UserFeaturePackageMappingEntity;
 import com.crmsme.dto.BusinessRequestDto;
 import com.crmsme.mapper.BusinessMapper;
 import com.crmsme.mapper.ConfigDataMapper;
@@ -19,6 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+
+    @Autowired
+    ConfigDataMapper configDataMapper;
 
     @Override
     public Long createUserDetails(UserEntity userEntity) {
@@ -42,5 +48,15 @@ public class UserServiceImpl implements UserService {
     public Long getUserIdByEmailId(String emailId) {
 
         return userMapper.getIdByEmailId(emailId);
+    }
+
+    @Override
+    public boolean insertFeaturePackageUserMapping(UserFeaturePackageMappingEntity userFeaturePackageMappingEntity) {
+
+        userFeaturePackageMappingEntity.setFeaturePackageId(configDataMapper.getFeatureAndPackageByLabel(CONSTANT_PROPERTIES.FEATURE_PACKAGE.FREE_TRIAL).getId());
+        userMapper.insertUserFeaturePackageMapping(userFeaturePackageMappingEntity);
+        log.info("User User Feature Package Mapping ID = '{}' ",userFeaturePackageMappingEntity.getId());
+
+        return true;
     }
 }

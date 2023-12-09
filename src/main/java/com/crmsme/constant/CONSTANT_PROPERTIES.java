@@ -26,6 +26,18 @@ public interface CONSTANT_PROPERTIES {
 
     }
 
+    interface  FEATURE_PACKAGE{
+
+        String FREE_TRIAL="FREE_TRIAL";
+        String SILVER="SILVER";
+
+
+        String GOLD="GOLD";
+
+    }
+
+
+
 
 
 }

@@ -4,6 +4,7 @@ import com.crmsme.constant.CONSTANT_PROPERTIES;
 import com.crmsme.constant.Constant;
 import com.crmsme.dbo.UserBusinessMappingEntity;
 import com.crmsme.dbo.UserEntity;
+import com.crmsme.dbo.UserFeaturePackageMappingEntity;
 import com.crmsme.dto.BusinessRequestDto;
 import com.crmsme.global.dto.Response;
 import com.crmsme.global.enums.ResponseStatus;
@@ -65,6 +66,13 @@ public class BusinessController {
                         .build();
 
                 userId = userService.createUserDetails(userEntity);
+
+                UserFeaturePackageMappingEntity userFeaturePackageMapping = UserFeaturePackageMappingEntity.builder()
+                        .userId(userId)
+                        .build();
+
+                userService.insertFeaturePackageUserMapping(userFeaturePackageMapping);
+
             }
 
 

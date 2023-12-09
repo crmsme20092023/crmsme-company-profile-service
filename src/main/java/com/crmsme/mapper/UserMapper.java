@@ -3,6 +3,7 @@ package com.crmsme.mapper;
 import com.crmsme.dbo.BusinessEntity;
 import com.crmsme.dbo.UserBusinessMappingEntity;
 import com.crmsme.dbo.UserEntity;
+import com.crmsme.dbo.UserFeaturePackageMappingEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -38,6 +39,22 @@ public interface UserMapper {
             ")")
     @Options(useGeneratedKeys = true, keyColumn = "ID",keyProperty = "id")
     public  Long insertUserBusinessMapping(UserBusinessMappingEntity userBusinessMappingEntity);
+
+
+    @Insert("Insert into feature_package_user_mapping" +
+            "(" +
+            "feature_package_id" +
+            ",user_id" +
+            ")" +
+            " values( " +
+            " #{featurePackageId}" +
+            ", #{userId}" +
+            ")")
+    @Options(useGeneratedKeys = true, keyColumn = "ID",keyProperty = "id")
+    public  Long insertUserFeaturePackageMapping(UserFeaturePackageMappingEntity userFeaturePackageMappingEntity);
+
+
+
 
 
     @Select("Select id from user_details where email_id = #{emailId}")
